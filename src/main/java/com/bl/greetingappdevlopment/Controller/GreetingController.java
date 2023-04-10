@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+import java.util.List;
+
 @RestController
 public class GreetingController {
 
@@ -24,5 +26,10 @@ public class GreetingController {
     @GetMapping("/greeting")
     public Optional<Greeting> findGreeting(@RequestParam long id){
         return greetingService.findGreeting(id);
+    }
+
+    @GetMapping("/greeting/all")
+    public List<Greeting> getAllGreeting(){
+        return greetingService.getAllGreetings();
     }
 }

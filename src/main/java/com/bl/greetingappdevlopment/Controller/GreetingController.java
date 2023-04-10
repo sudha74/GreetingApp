@@ -14,10 +14,14 @@ public class GreetingController {
 
     @Autowired
     GreetingService greetingService;
-    @PostMapping("/greeting")
-    public String greeting(@RequestParam String name){
-        greetingService.saveGreeting(name);
-        return "Success";
+    @PostMapping("/greeting/add")
+    public Greeting greeting(@RequestParam String firstName, String lastName){
+        return greetingService.saveGreeting(firstName,lastName);
+    }
+
+    @PostMapping("/greeting/post")
+    public Greeting postGreeting(@RequestBody Greeting greeting){
+        return greetingService.createGreeting(greeting);
     }
 
     @GetMapping("/greeting")
@@ -33,5 +37,11 @@ public class GreetingController {
     @PutMapping("/greeting/put/{id}")
     public Greeting editGreeting(@RequestBody Greeting greeting, @PathVariable Long id){
         return greetingService.editGreeting(id, greeting);
+    }
+
+    @DeleteMapping("/greeting/delete/{id}")
+    public String deleteGreeting(@PathVariable Long id){
+        greetingService.deleteGreeting(id);
+        return "deleted";
     }
 }
